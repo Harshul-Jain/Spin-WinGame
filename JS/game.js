@@ -54,21 +54,24 @@ function create(){
         color:"red",
     }
     this.game_text=this.add.text(10,10,"Welcome to Spin & Win",font_style);
-    
-    
-    
-   
-    
-    
+
 }
 //Game Loop
 function update(){
     console.log("Inside Update");
-    this.wheel.angle+=2;
 }
 function spinwheel(){
     console.log("You clicked the mouse");
     console.log("Start spinning");
     this.game_text.setText("You clicked the mouse!");
+    tween =this.tweens.add({
+        targets:this.wheel,
+        angle:800,
+        ease:"cubic.easeOut",
+        duration:3000,
+        onComlete:function(){
+            console.log("You won something");
+        },
+    });
 }
 
