@@ -25,6 +25,7 @@ function preload(){
     this.load.image('stand','./Assets/stand.png');
     
 }
+temp=true;
 function create(){
 	console.log("create");
     //create background image
@@ -41,14 +42,13 @@ function create(){
     
     //lets create wheel
     this.wheel=this.add.sprite(W/2,H/2,'wheel');
-    this.wheel.setScale(0.25)
-   
+    this.wheel.setScale(0.25);
     //lets create pin
     let pin=this.add.sprite(W/2,H/2-250,'pin');
     pin.setScale(0.25);
     
     //event listener for mouse click
-    this.input.on("pointerdown",spinwheel,this);
+    this.cursors=this.input.on("pointerdown",spinwheel,this);
     //lets create text object
     font_style={
         font:"bold 30px Roboto",
@@ -56,13 +56,15 @@ function create(){
         color:"red",
     }
     this.game_text=this.add.text(10,10,"Welcome to Spin & Win",font_style);
-
+    
 }
 //Game Loop
 function update(){
     console.log("Inside Update");
 }
 function spinwheel(){
+    if(temp){
+    temp=false;
     console.log("You clicked the mouse");
     console.log("Start spinning");
     this.game_text.setText("You clicked the mouse!");
@@ -75,10 +77,12 @@ function spinwheel(){
         angle:total_angle,
         ease:"cubic.easeOut",
         duration:6000,
+        repeat:0,
         onComplete:function(){
             console.log("You won "+prizes_config.prixes_names[idx]);
+           temp=true;
         },
     });
-
+    }
 }
 
